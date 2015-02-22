@@ -74,4 +74,21 @@ bindSliders = function() {
     $('#rider-temp-label').text(condition);
   });
   $('#rider-temp-slider').change();
+
+  $('#rider-work-slider').on('change mousemove', function() {
+    var condition = ""
+    switch($('#rider-work-slider').val()) {
+      case "0":
+        condition = "Easy";
+        break;
+      case "1":
+        condition = "Medium";
+        break;
+      case "2":
+        condition = "Hard";
+        break;
+    }
+    $('#rider-work-label').text(condition);
+  });
+  $('#rider-work-slider').change();
 }
