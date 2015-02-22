@@ -14,15 +14,30 @@ getWeather = function(position) {
     url: url,
     dataType: "jsonp",
     success: function(data) {
-      temperature = Math.round(data.currently.temperature);
-      console.log("Updating temperature to ", temperature);
+      var temperature = Math.round(data.currently.temperature);
       $('#temperature-slider').val(temperature);
       $('#temperature-slider').change();
 
-      windSpeed = Math.round(data.currently.windSpeed);
-      console.log("Updating wind speed to ", windSpeed);
+      var windSpeed = Math.round(data.currently.windSpeed);
       $('#wind-slider').val(windSpeed);
       $('#wind-slider').change();
+
+      var condition = data.currently.icon;
+      var sunnyConditions = ['clear-day', 'clear-night', 'partly-cloudy-day', 'partly-cloudy-night', 'wind'];
+      var overcastConditions = ['cloudy', 'fog'];
+      var rainConditions = ['rain'];
+      var winterConditions = ['snow', 'sleet'];
+
+      if(sunnyConditions.indexOf(condition) != -1) {
+        $('#conditions-slider').val(0);
+      } else if (overcastConditions.indexOf(condition) != -1) {
+        $('#conditions-slider').val(1);
+      } else if (rainConditions.indexOf(condition) != -1) {
+        $('#conditions-slider').val(2);
+      } else if (winterConditions.indexOf(condition) != -1) {
+        $('#conditions-slider').val(3);
+      }
+      $('#conditions-slider').change();
     }
   });
 }
