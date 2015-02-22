@@ -37,4 +37,24 @@ bindSliders = function() {
     $('#wind-label').text($('#wind-slider').val() + " MPH");
   });
   $('#wind-slider').change();
+
+  $('#conditions-slider').on('change mousemove', function() {
+    var condition = ""
+    switch($('#conditions-slider').val()) {
+      case "0":
+        condition = "Sunny";
+        break;
+      case "1":
+        condition = "Overcast";
+        break;
+      case "2":
+        condition = "Rainy";
+        break;
+      case "3":
+        condition = "Wintery Percipitation";
+        break;
+    }
+    $('#conditions-label').text(condition);
+  });
+  $('#conditions-slider').change();
 }
