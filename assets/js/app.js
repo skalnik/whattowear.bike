@@ -57,4 +57,21 @@ bindSliders = function() {
     $('#conditions-label').text(condition);
   });
   $('#conditions-slider').change();
+
+  $('#rider-temp-slider').on('change mousemove', function() {
+    var condition = ""
+    switch($('#rider-temp-slider').val()) {
+      case "0":
+        condition = "Cool";
+        break;
+      case "1":
+        condition = "Neutral";
+        break;
+      case "2":
+        condition = "Warm";
+        break;
+    }
+    $('#rider-temp-label').text(condition);
+  });
+  $('#rider-temp-slider').change();
 }
