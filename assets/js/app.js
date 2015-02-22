@@ -1,0 +1,40 @@
+$(function() {
+  bindSliders();
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getWeather);
+  }
+})
+
+getWeather = function(position) {
+  var API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
+  var url = "https://api.forecast.io/forecast/" + API_KEY + "/" +
+    position.coords.latitude + "," + position.coords.longitude;
+  $.ajax({
+    url: url,
+    dataType: "jsonp",
+    success: function(data) {
+      temperature = Math.round(data.currently.temperature);
+      console.log("Updating temperature to ", temperature);
+      $('#temperature-slider').val(temperature);
+      $('#temperature-slider').change();
+
+      windSpeed = Math.round(data.currently.windSpeed);
+      console.log("Updating wind speed to ", windSpeed);
+      $('#wind-slider').val(windSpeed);
+      $('#wind-slider').change();
+    }
+  });
+}
+
+bindSliders = function() {
+  $('#temperature-slider').on('change mousemove', function() {
+    $('#temperature-label').text($('#temperature-slider').val() + " F");
+  });
+  $('#temperature-slider').change();
+
+  $('#wind-slider').on('change mousemove', function() {
+    $('#wind-label').text($('#wind-slider').val() + " MPH");
+  });
+  $('#wind-slider').change();
+}
