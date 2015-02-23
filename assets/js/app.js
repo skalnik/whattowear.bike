@@ -6,7 +6,7 @@ $(function() {
   }
 })
 
-getWeather = function(position) {
+ function getWeather(position) {
   var API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
   var url = "https://api.forecast.io/forecast/" + API_KEY + "/" +
     position.coords.latitude + "," + position.coords.longitude;
@@ -42,7 +42,7 @@ getWeather = function(position) {
   });
 }
 
-bindSliders = function() {
+function bindSliders() {
   $('#temperature-slider').on('change mousemove', function() {
     $('#temperature-label').text($('#temperature-slider').val() + " F");
   });
