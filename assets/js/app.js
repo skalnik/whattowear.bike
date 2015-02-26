@@ -54,56 +54,154 @@ function bindSliders() {
   $('#wind-slider').change();
 
   $('#conditions-slider').on('change mousemove', function() {
-    var condition = ""
-    switch($('#conditions-slider').val()) {
-      case "0":
-        condition = "Sunny";
-        break;
-      case "1":
-        condition = "Overcast";
-        break;
-      case "2":
-        condition = "Rainy";
-        break;
-      case "3":
-        condition = "Wintery Percipitation";
-        break;
-    }
-    $('#conditions-label').text(condition);
+    $('#conditions-label').text(conditions());
   });
   $('#conditions-slider').change();
 
   $('#rider-temp-slider').on('change mousemove', function() {
-    var condition = ""
-    switch($('#rider-temp-slider').val()) {
-      case "0":
-        condition = "Cool";
-        break;
-      case "1":
-        condition = "Neutral";
-        break;
-      case "2":
-        condition = "Warm";
-        break;
-    }
-    $('#rider-temp-label').text(condition);
+    $('#rider-temp-label').text(riderTemp());
   });
   $('#rider-temp-slider').change();
 
   $('#rider-work-slider').on('change mousemove', function() {
-    var condition = ""
-    switch($('#rider-work-slider').val()) {
-      case "0":
-        condition = "Easy";
-        break;
-      case "1":
-        condition = "Medium";
-        break;
-      case "2":
-        condition = "Hard";
-        break;
-    }
-    $('#rider-work-label').text(condition);
+    $('#rider-work-label').text(riderWork());
   });
   $('#rider-work-slider').change();
+
+  $('input[type=range]').on('change mousemove', updateWhatToWear);
+  $('input[type=radio]').on('change', updateWhatToWear);
+  updateWhatToWear();
+}
+
+function conditions() {
+  switch($('#conditions-slider').val()) {
+    case "0":
+      return "Sunny";
+    case "1":
+      return "Overcast";
+    case "2":
+      return "Rainy";
+    case "3":
+      return "Wintery Percipitation";
+  }
+}
+
+function riderTemp() {
+  switch($('#rider-temp-slider').val()) {
+    case "0":
+      return "Cool";
+    case "1":
+      return "Neutral";
+    case "2":
+      return "Warm";
+  }
+}
+
+function riderWork() {
+  switch($('#rider-work-slider').val()) {
+    case "0":
+      return "Easy";
+    case "1":
+      return "Medium";
+    case "2":
+      return "Hard";
+  }
+}
+
+function rideType() {
+  switch($('input:radio[name=ride-type]:checked').val()) {
+    case "commute":
+      return 0;
+    case "mountain":
+      return 1;
+    case "road":
+      return 2;
+  }
+}
+
+function temperature() {
+  return parseFloat($('#temperature-slider').val());
+}
+
+function windModifier() {
+  return -0.25 * parseFloat($('#wind-slider').val());
+}
+
+function conditionsModifier() {
+  return -5 * parseFloat($('#conditions-slider').val());
+}
+
+function riderTempModifier() {
+  return -6 * parseFloat($('#rider-temp-slider').val());
+}
+
+function riderWorkModifier() {
+  return 6 * parseFloat($('#rider-work-slider').val());
+}
+
+function rideTypeModifier() {
+  return 3 * rideType();
+}
+
+
+function effectiveTemperature() {
+  return temperature() + windModifier() + conditionsModifier() +
+    riderTempModifier() + riderWorkModifier() + rideTypeModifier();
+}
+
+function updateWhatToWear() {
+  updateHead();
+  updateTopHalf();
+  updateArms();
+  updateHands();
+  updateBottomHalf();
+  updateFeet();
+}
+
+function updateHead() {
+  var head = 'Helmet and maybe a cycling cap';
+  if(effectiveTemperature() <= 65) { head = 'Helmet and a cycling cap' }
+  if(effectiveTemperature() <= 40) { head = 'Helmet, a cycling cap, and some sort of scarf thing' }
+  $('#wear-head').text(head);
+}
+
+function updateTopHalf() {
+  var topHalf = 'Short sleeve jersey';
+  if(effectiveTemperature() <= 55) { topHalf = 'Jersey w/base layer or wind vest' }
+  if(effectiveTemperature() <= 45) { topHalf = 'Jersey w/light baselayer and/or wind jacket' }
+  if(effectiveTemperature() <= 35) { topHalf = 'Jersey w/light baselayer and insulated jacket' }
+  $('#wear-top').text(topHalf);
+}
+
+function updateArms() {
+  var arms = 'Apply sunscreen';
+  if(effectiveTemperature() <= 65) { arms = 'Arm warmers (if not covered)' }
+  if(effectiveTemperature() <= 35) { arms = 'Arm warmers and other layer(s) on top' }
+  $('#wear-arms').text(arms);
+}
+
+function updateHands() {
+  var hands = 'Apply sunscreen';
+  if(effectiveTemperature() <= 65) { hands = 'Light gloves' }
+  if(effectiveTemperature() <= 55) { hands = 'Fullfinger warm gloves' }
+  if(effectiveTemperature() <= 45) { hands = 'Heavy gloves' }
+  if(effectiveTemperature() <= 35) { hands = 'Crazy lobster glove setup' }
+  $('#wear-hands').text(hands);
+}
+
+function updateBottomHalf() {
+  var bottomHalf = 'Bib shorts';
+  if(effectiveTemperature() <= 55) { bottomHalf = 'Bib knickers or bib shorts w/knee warmers or may just some embro' }
+  if(effectiveTemperature() <= 45) { bottomHalf = 'Bib tights, bib shorts w/leg warmers, embro, etc' }
+  if(effectiveTemperature() <= 35) { bottomHalf = 'Thick bib tights and perhaps a layer on top of that' }
+  $('#wear-bottom').text(bottomHalf);
+}
+
+function updateFeet() {
+  var feet = 'Socks and cycling shoes';
+  if (effectiveTemperature() >= 75) { feet = 'Thin socks and cycling shoes' };
+  if (effectiveTemperature() <= 55) { feet = 'Wool socks and cycling shoes, maybe toe covers if your shoes breathe well' };
+  if (effectiveTemperature() <= 45) { feet = 'Wool socks and cycling shoes and toe covers' };
+  if (effectiveTemperature() <= 35) { feet = 'Wool socks and cycling shoes and shoe covers' };
+  $('#wear-feet').text(feet);
 }
