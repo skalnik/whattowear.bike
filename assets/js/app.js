@@ -14,6 +14,7 @@ $(function() {
     url: url,
     dataType: "jsonp",
     success: function(data) {
+      $('p.js-weather-update').show();
       var temperature = Math.round(data.currently.temperature);
       $('#temperature-slider').val(temperature);
       $('#temperature-slider').change();
