@@ -53,7 +53,11 @@
     $.get(url, function(data) {
       $('p.location .location-name').text(data.features[0].place_name);
       $('p.location').show();
-    })
+    });
+  }
+
+  function hideLocation() {
+    $('p.location').hide();
   }
 
   function bindSliders() {
@@ -83,7 +87,11 @@
     $('#rider-work-slider').change();
 
     $('input[type=range]').on('change mousemove', updateWhatToWear);
-    $('input[type=radio]').on('change', updateWhatToWear);
+    $('input[type=range]').on('change', hideLocation);
+    $('input[type=radio]').on('change', function() {
+      hideLocation();
+      updateWhatToWear();
+    });
     updateWhatToWear();
   }
 
