@@ -45,6 +45,17 @@
     });
   }
 
+  function getLocation(position) {
+    var API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
+    var url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" +
+      position.coords.longitude + "," + position.coords.latitude +
+      ".json?access_token=" + API_KEY;
+    $.get(url, function(data) {
+      $('p.location .location-name').text(data.features[0].place_name);
+      $('p.location').show();
+    })
+  }
+
   function bindSliders() {
     $('#temperature-slider').on('change mousemove', function() {
       $('#temperature-label').text($('#temperature-slider').val() + " F");
