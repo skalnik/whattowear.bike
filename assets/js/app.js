@@ -165,7 +165,6 @@
     return 3 * rideType();
   }
 
-
   function effectiveTemperature() {
     return temperature() + windModifier() + conditionsModifier() +
       riderTempModifier() + riderWorkModifier() + rideTypeModifier();
