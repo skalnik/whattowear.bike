@@ -109,7 +109,7 @@
     $('#rider-work-slider').change();
 
     $('input[type=range]').on('change mousemove', updateWhatToWear);
-    $('input[type=radio]').on('change', updateWhatToWear);
+    $('select, input[type=radio]').on('change', updateWhatToWear);
 
     $('input.location-name').on('change', locateUser);
 
@@ -151,17 +151,6 @@
     }
   }
 
-  function rideType() {
-    switch($('input:radio[name=ride-type]:checked').val()) {
-      case "commute":
-        return 0;
-      case "mountain":
-        return 1;
-      case "road":
-        return 2;
-    }
-  }
-
   function temperature() {
     return parseFloat($('#temperature-slider').val());
   }
@@ -183,7 +172,7 @@
   }
 
   function rideTypeModifier() {
-    return 3 * rideType();
+    return 3 * parseFloat($('#ride-type').val());
   }
 
   function effectiveTemperature() {

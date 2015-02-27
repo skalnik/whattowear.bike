@@ -13,3 +13,32 @@ p.location {
   p.location input.location-name {
     width: 500px;
   }
+
+input[type=range]{
+  -webkit-appearance: none;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  height: 28px;
+  padding: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  position: relative;
+  z-index: 3;
+  width: 5px;
+  background: #ccc;
+  height: 28px;
+}
+input[type="range"]::-webkit-slider-thumb:after {
+  content: '';
+  width: 1337px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  z-index: 1;
+  background: #ddd;
+}
