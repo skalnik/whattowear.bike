@@ -1,19 +1,22 @@
 (function() {
-  $(function() {
-    bindSliders();
+  var MAPBOX_API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
+  var FORECAST_API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
+  var weatherLoaded = false;
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(locateUser);
+  $(function() {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        getWeather(position.coords.longitude, position.coords.latitude);
+        getLocation(position.coords.longitude, position.coords.latitude);
+      });
     }
+
+    bindControls();
+    updateWhatToWear();
   });
 
-  function locateUser(position) {
-    getWeather(position.coords.longitude, position.coords.latitude);
-  }
-
   function getWeather(longitude, latitude) {
-    var API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
-    var url = "https://api.forecast.io/forecast/" + API_KEY + "/" +
+    var url = "https://api.forecast.io/forecast/" + FORECAST_API_KEY + "/" +
       latitude + "," + longitude;
     $.ajax({
       url: url,
@@ -44,15 +47,14 @@
         }
         $('#conditions-slider').change();
 
-        getLocation(longitude, latitude);
+        weatherLoaded = true;
       }
     });
   }
 
   function getLocation(longitude, latitude) {
-    var API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
     var url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" +
-      longitude + "," + latitude + ".json?access_token=" + API_KEY;
+      longitude + "," + latitude + ".json?access_token=" + MAPBOX_API_KEY;
     $.get(url, function(data) {
       $('p.location .location-name').attr('placeholder', data.features[0].place_name);
       $('p.location').show();
@@ -60,10 +62,28 @@
   }
 
   function hideLocation() {
-    $('p.location').hide();
+    if(weatherLoaded) {
+      $('p.location').hide();
+    }
   }
 
-  function bindSliders() {
+
+  function locateUser() {
+    var userInput = $('input.location-name');
+    if(userInput.val().length != 0) {
+      var url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" +
+        encodeURIComponent(userInput.val()) + ".json?access_token=" + MAPBOX_API_KEY;
+      $.ajax({
+        url: url,
+        success: function(data) {
+          var location = data.features[0].center;
+          getWeather(location[0], location[1]);
+        }
+      });
+    }
+  }
+
+  function bindControls() {
     $('#temperature-slider').on('change mousemove', function() {
       $('#temperature-label').text($('#temperature-slider').val() + " F");
     });
@@ -95,7 +115,8 @@
       hideLocation();
       updateWhatToWear();
     });
-    updateWhatToWear();
+
+    $('input.location-name').on('change', locateUser);
   }
 
   function conditions() {

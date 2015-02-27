@@ -1,3 +1,7 @@
 p.location {
   display: none;
 }
+
+p input.location-name {
+  width: 500px;
+}
