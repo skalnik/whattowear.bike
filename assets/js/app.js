@@ -2,10 +2,8 @@
   var MAPBOX_API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
   var FORECAST_API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
   $(document).bind('ajaxStart', function() {
-    console.log('poop');
     $('body').addClass('loading');
   }).bind('ajaxStop', function() {
-    console.log('done');
     $('body').removeClass('loading');
   });
 
