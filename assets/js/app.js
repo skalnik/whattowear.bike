@@ -3,14 +3,18 @@
     bindSliders();
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getWeather);
+      navigator.geolocation.getCurrentPosition(locateUser);
     }
   });
 
-  function getWeather(position) {
+  function locateUser(position) {
+    getWeather(position.coords.longitude, position.coords.latitude);
+  }
+
+  function getWeather(longitude, latitude) {
     var API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
     var url = "https://api.forecast.io/forecast/" + API_KEY + "/" +
-      position.coords.latitude + "," + position.coords.longitude;
+      latitude + "," + longitude;
     $.ajax({
       url: url,
       dataType: "jsonp",
@@ -40,16 +44,15 @@
         }
         $('#conditions-slider').change();
 
-        getLocation(position);
+        getLocation(longitude, latitude);
       }
     });
   }
 
-  function getLocation(position) {
+  function getLocation(longitude, latitude) {
     var API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
     var url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" +
-      position.coords.longitude + "," + position.coords.latitude +
-      ".json?access_token=" + API_KEY;
+      longitude + "," + latitude + ".json?access_token=" + API_KEY;
     $.get(url, function(data) {
       $('p.location .location-name').text(data.features[0].place_name);
       $('p.location').show();
