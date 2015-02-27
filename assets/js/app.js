@@ -1,10 +1,17 @@
 (function() {
   var MAPBOX_API_KEY = "pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg";
   var FORECAST_API_KEY = "6d29cacc6a66711f8d1f46e88e377e19";
-  var weatherLoaded = false;
+  $(document).bind('ajaxStart', function() {
+    console.log('poop');
+    $('body').addClass('loading');
+  }).bind('ajaxStop', function() {
+    console.log('done');
+    $('body').removeClass('loading');
+  });
 
   $(function() {
     if(navigator.geolocation) {
+      $('body').addClass('loading');
       navigator.geolocation.getCurrentPosition(function(position) {
         getWeather(position.coords.longitude, position.coords.latitude);
         getLocation(position.coords.longitude, position.coords.latitude);
@@ -46,8 +53,6 @@
           $('#conditions-slider').val(3);
         }
         $('#conditions-slider').change();
-
-        weatherLoaded = true;
       }
     });
   }
@@ -61,13 +66,6 @@
     });
   }
 
-  function hideLocation() {
-    if(weatherLoaded) {
-      $('p.location').hide();
-    }
-  }
-
-
   function locateUser() {
     var userInput = $('input.location-name');
     if(userInput.val().length != 0) {
@@ -76,8 +74,9 @@
       $.ajax({
         url: url,
         success: function(data) {
-          var location = data.features[0].center;
-          getWeather(location[0], location[1]);
+          var location = data.features[0];
+          getWeather(location.center[0], location.center[1]);
+          $('input.location-name').val(location.place_name);
         }
       });
     }
@@ -110,13 +109,11 @@
     $('#rider-work-slider').change();
 
     $('input[type=range]').on('change mousemove', updateWhatToWear);
-    $('input[type=range]').on('change', hideLocation);
-    $('input[type=radio]').on('change', function() {
-      hideLocation();
-      updateWhatToWear();
-    });
+    $('input[type=radio]').on('change', updateWhatToWear);
 
     $('input.location-name').on('change', locateUser);
+
+
   }
 
   function conditions() {
