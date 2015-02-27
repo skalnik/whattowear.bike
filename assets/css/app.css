@@ -1,0 +1,15 @@
+body:not(.loading) .spinner {
+  display: none;
+}
+
+body.loading .spinner {
+  display: inline-block;
+}
+
+p.location {
+  display: none;
+}
+
+  p.location input.location-name {
+    width: 500px;
+  }
