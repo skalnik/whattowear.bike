@@ -54,7 +54,7 @@
     var url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" +
       longitude + "," + latitude + ".json?access_token=" + API_KEY;
     $.get(url, function(data) {
-      $('p.location .location-name').text(data.features[0].place_name);
+      $('p.location .location-name').attr('placeholder', data.features[0].place_name);
       $('p.location').show();
     });
   }
