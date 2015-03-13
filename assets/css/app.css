@@ -1,3 +1,13 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+body {
+  margin-bottom: 900px;
+}
+
 body:not(.loading) .spinner {
   display: none;
 }
@@ -5,6 +15,7 @@ body:not(.loading) .spinner {
 body.loading .spinner {
   display: inline-block;
 }
+
 
 p.location {
   display: none;
