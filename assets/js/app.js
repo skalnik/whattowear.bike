@@ -229,7 +229,7 @@
   function updateFeet() {
     var feet = 'Socks and cycling shoes';
     if (effectiveTemperature() >= 75) { feet = 'Thin socks and cycling shoes' };
-    if (effectiveTemperature() <= 55) { feet = 'Wool socks and cycling shoes, maybe toe covers if your shoes breathe well' };
+    if (effectiveTemperature() <= 55) { feet = 'Wool socks and cycling shoes, toe covers if your shoes breathe well' };
     if (effectiveTemperature() <= 45) { feet = 'Wool socks and cycling shoes and toe covers' };
     if (effectiveTemperature() <= 35) { feet = 'Wool socks and cycling shoes and shoe covers' };
     $('#wear-feet').text(feet);
