@@ -35,6 +35,20 @@ input[type=range]{
   padding: 0;
 }
 
+input[type=range]::-moz-range-track {
+  background: #fff;
+  height: 100px;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: 0;
+  position: relative;
+  z-index: 3;
+  width: 7px;
+  background: #ccc;
+  height: 30px;
+}
+
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   position: relative;
@@ -43,6 +57,7 @@ input[type=range]::-webkit-slider-thumb {
   background: #ccc;
   height: 28px;
 }
+
 input[type=range]::-webkit-slider-thumb:after {
   content: '';
   width: 1337px;
