@@ -8,93 +8,105 @@
     <link href="assets/css/app.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container-fluid col-sm-8 col-sm-offset-2">
-      <div class="page-header">
-        <h1>What To Wear On Your Bike</h1>
+    <header>
+      <div class="container-fluid col-sm-8 col-sm-offset-2">
+        <h1 class="page-header">What To Wear On Your Bike</h1>
       </div>
+    </header>
 
-      <h2>Hows the weather?</h2>
+    <section class="weather">
+      <div class="container-fluid col-sm-8 col-sm-offset-2">
+        <h2>Hows the weather?</h2>
 
-      <div class="spinner">
-        Updating&hellip;
-      </div>
+        <div class="spinner">
+          Updating&hellip;
+        </div>
 
-      <p class="location">
-        Based on <input type="text" class="location-name"></input>
-      </p>
+        <p class="location">
+          Based on <input type="text" class="location-name"></input>
+        </p>
 
-      <div class="temperature form-group">
-        <label for="temperature-slider">What's the ambient temperature in Farenheit?</label>
-        <div class="input-group">
-          <input id="temperature-slider" class="form-control"
-                 type="range" min="-5" max="125" step="1" value="50" />
-          <span id="temperature-label" class="input-group-addon"></span>
+        <div class="temperature form-group">
+          <label for="temperature-slider">What's the ambient temperature in Farenheit?</label>
+          <div class="input-group">
+            <input id="temperature-slider" class="form-control"
+                   type="range" min="-5" max="125" step="1" value="50" />
+            <span id="temperature-label" class="input-group-addon"></span>
+          </div>
+        </div>
+
+        <div class="wind form-group">
+          <label for="wind-slider">How fast is the wind blowing in MPH?</label>
+          <div class="input-group">
+            <input id="wind-slider" class="form-control"
+                   type="range" min="0" max="30" step="1" value="5" />
+            <span id="wind-label" class="input-group-addon"></span>
+          </div>
+        </div>
+
+        <div class="conditions form-group">
+          <label for="conditions-slider">How does it look outside?</label>
+          <div class="input-group">
+            <input id="conditions-slider" class="form-control"
+                   type="range" min="0" max="3" step="1" value="0" />
+            <span id="conditions-label" class="input-group-addon"></span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="wind form-group">
-        <label for="wind-slider">How fast is the wind blowing in MPH?</label>
-        <div class="input-group">
-          <input id="wind-slider" class="form-control"
-                 type="range" min="0" max="30" step="1" value="5" />
-          <span id="wind-label" class="input-group-addon"></span>
+    <section class="rider">
+      <div class="container-fluid col-sm-8 col-sm-offset-2">
+        <h2>And how about yourself?</h2>
+
+        <div class="rider-temp form-group">
+          <label for="rider-temp-slider">What temperature do you like to feel when you're riding?</label>
+          <div class="input-group">
+            <input id="rider-temp-slider" class="form-control"
+                   type="range" min="0" max="2" step="1" value="0" />
+            <span id="rider-temp-label" class="input-group-addon"></span>
+          </div>
+        </div>
+
+        <div class="rider-work form-group">
+          <label for="rider-work-slider">How hard will you be working on this ride?</label>
+          <div class="input-group">
+            <input id="rider-work-slider" class="form-control"
+                   type="range" min="0" max="2" step="1" value="0" />
+            <span id="rider-work-label" class="input-group-addon"></span>
+          </div>
+        </div>
+
+        <div class="ride-type">
+          <label for="ride-type">What kind of ride are you going on?</label>
+          <select id="ride-type" name="ride-type" class="form-control">
+            <option value="0" default>Commute</option>
+            <option value="1">Mountain</option>
+            <option value="2">Road</option>
+          </select>
         </div>
       </div>
+    </section>
 
-      <div class="conditions form-group">
-        <label for="conditions-slider">How does it look outside?</label>
-        <div class="input-group">
-          <input id="conditions-slider" class="form-control"
-                 type="range" min="0" max="3" step="1" value="0" />
-          <span id="conditions-label" class="input-group-addon"></span>
-        </div>
+    <section class="wear">
+      <div class="wear container-fluid col-sm-8 col-sm-offset-2">
+        <h2>Wear this stuff:</h2>
+        <dl class="dl-horizontal">
+          <dt>Head</dt>
+          <dd id="wear-head"></dd>
+          <dt>Top half</dt>
+          <dd id="wear-top"></dd>
+          <dt>Arms</dt>
+          <dd id="wear-arms"></dd>
+          <dt>Hands</dt>
+          <dd id="wear-hands"></dd>
+          <dt>Bottom half</dt>
+          <dd id="wear-bottom"></dd>
+          <dt>Feet</dt>
+          <dd id="wear-feet"></dd>
+        </ul>
       </div>
-
-      <h2>And how about yourself?</h2>
-
-      <div class="rider-temp form-group">
-        <label for="rider-temp-slider">What temperature do you like to feel when you're riding?</label>
-        <div class="input-group">
-          <input id="rider-temp-slider" class="form-control"
-                 type="range" min="0" max="2" step="1" value="0" />
-          <span id="rider-temp-label" class="input-group-addon"></span>
-        </div>
-      </div>
-
-      <div class="rider-work form-group">
-        <label for="rider-work-slider">How hard will you be working on this ride?</label>
-        <div class="input-group">
-          <input id="rider-work-slider" class="form-control"
-                 type="range" min="0" max="2" step="1" value="0" />
-          <span id="rider-work-label" class="input-group-addon"></span>
-        </div>
-      </div>
-
-      <div class="ride-type">
-        <label for="ride-type">What kind of ride are you going on?</label>
-        <select id="ride-type" name="ride-type" class="form-control">
-          <option value="0" default>Commute</option>
-          <option value="1">Mountain</option>
-          <option value="2">Road</option>
-        </select>
-      </div>
-
-      <h2>Wear this stuff:</h2>
-      <dl class="dl-horizontal">
-        <dt>Head</dt>
-        <dd id="wear-head"></dd>
-        <dt>Top half</dt>
-        <dd id="wear-top"></dd>
-        <dt>Arms</dt>
-        <dd id="wear-arms"></dd>
-        <dt>Hands</dt>
-        <dd id="wear-hands"></dd>
-        <dt>Bottom half</dt>
-        <dd id="wear-bottom"></dd>
-        <dt>Feet</dt>
-        <dd id="wear-feet"></dd>
-      </ul>
-    </div>
+    </section>
 
     <footer class="footer">
       <p class="col-sm-8 col-sm-offset-2">Inspired by Chris Kelly's <a href="http://ckdake.com/projects/whattowear.html">
