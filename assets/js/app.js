@@ -8,7 +8,7 @@
   })
 
   $(function () {
-    if (navigator.geolocation) {
+    if (false) {
       $('body').addClass('loading')
       navigator.geolocation.getCurrentPosition(function (position) {
         getWeather(position.coords.longitude, position.coords.latitude)
