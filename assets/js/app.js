@@ -18,6 +18,8 @@
 
     bindControls()
     updateWhatToWear()
+
+    $('input[type=range]').change()
   })
 
   function getWeather (longitude, latitude) {
@@ -107,6 +109,7 @@
     $('#rider-work-slider').change()
 
     $('input[type=range]').on('change mousemove', updateWhatToWear)
+    $('input[type=range]').on('change mousemove', updateBackground)
     $('select, input[type=radio]').on('change', updateWhatToWear)
 
     $('input.location-name').on('change', locateUser)
@@ -231,5 +234,10 @@
     if (effectiveTemperature() <= 45) { feet = 'Wool socks and cycling shoes and toe covers' }
     if (effectiveTemperature() <= 35) { feet = 'Wool socks and cycling shoes and shoe covers' }
     $('#wear-feet').text(feet)
+  }
+
+  function updateBackground() {
+    var currentPercentage = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min')) * 100
+    $(this).css('background', 'linear-gradient(to right, #ddd ' + currentPercentage + '%, #fff ' + currentPercentage + '%)')
   }
 })()

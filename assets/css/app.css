@@ -3,7 +3,6 @@ html {
   min-height: 100%;
 }
 
-
 body {
   margin-bottom: 900px;
 }
@@ -56,17 +55,6 @@ input[type=range]::-webkit-slider-thumb {
   width: 5px;
   background: #ccc;
   height: 28px;
-}
-
-input[type=range]::-webkit-slider-thumb:after {
-  content: '';
-  width: 1337px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 5px;
-  z-index: 1;
-  background: #ddd;
 }
 
 footer {
