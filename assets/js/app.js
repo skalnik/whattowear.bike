@@ -189,50 +189,51 @@
   }
 
   function updateHead () {
-    var head = 'Helmet and maybe a cycling cap'
-    if (effectiveTemperature() <= 65) { head = 'Helmet and a cycling cap' }
-    if (effectiveTemperature() <= 40) { head = 'Helmet, a cycling cap, and some sort of scarf thing' }
+    var head = 'Helmet, Glasses, and maybe a cycling cap'
+    if (effectiveTemperature() <= 65) { head = 'Helmet, Glasses, and a cycling cap' }
+    if (effectiveTemperature() <= 53) { head = 'Helmet, Glasses, a cycling cap or thin fleece/windstop beanie'
+    if (effectiveTemperature() <= 40) { head = 'Helmet, Glasses, a cycling cap or thin fleece/windstop beanie, and some sort of scarf thing' }
     $('#wear-head').text(head)
   }
 
   function updateTopHalf () {
     var topHalf = 'Short sleeve jersey'
-    if (effectiveTemperature() <= 55) { topHalf = 'Jersey w/base layer or wind vest' }
-    if (effectiveTemperature() <= 45) { topHalf = 'Jersey w/light baselayer and/or wind jacket' }
-    if (effectiveTemperature() <= 35) { topHalf = 'Jersey w/light baselayer and insulated jacket' }
+    if (effectiveTemperature() <= 56) { topHalf = 'Jersey w/base layer or wind vest' }
+    if (effectiveTemperature() <= 46) { topHalf = 'Jersey w/light baselayer and/or wind jacket' }
+    if (effectiveTemperature() <= 36) { topHalf = 'Jersey w/light baselayer and insulated jacket' }
     $('#wear-top').text(topHalf)
   }
 
   function updateArms () {
     var arms = 'Apply sunscreen'
-    if (effectiveTemperature() <= 65) { arms = 'Arm warmers (if not covered)' }
-    if (effectiveTemperature() <= 35) { arms = 'Arm warmers and other layer(s) on top' }
+    if (effectiveTemperature() <= 63) { arms = 'Arm warmers (if not covered)' }
+    if (effectiveTemperature() <= 38) { arms = 'Arm warmers and other layer(s) on top' }
     $('#wear-arms').text(arms)
   }
 
   function updateHands () {
-    var hands = 'Apply sunscreen'
+    var hands = 'Apply sunscreen, maybe gloves if that is your style'
     if (effectiveTemperature() <= 65) { hands = 'Light gloves' }
     if (effectiveTemperature() <= 55) { hands = 'Fullfinger warm gloves' }
-    if (effectiveTemperature() <= 45) { hands = 'Heavy gloves' }
-    if (effectiveTemperature() <= 35) { hands = 'Crazy lobster glove setup' }
+    if (effectiveTemperature() <= 40) { hands = 'Heavy gloves or Windstop gloves with liners' }
+    if (effectiveTemperature() <= 25) { hands = 'Crazy lobster glove setup' }
     $('#wear-hands').text(hands)
   }
 
   function updateBottomHalf () {
     var bottomHalf = 'Bib shorts'
-    if (effectiveTemperature() <= 55) { bottomHalf = 'Bib knickers or bib shorts w/knee warmers or may just some embro' }
-    if (effectiveTemperature() <= 45) { bottomHalf = 'Bib tights, bib shorts w/leg warmers, embro, etc' }
+    if (effectiveTemperature() <= 58) { bottomHalf = 'Bib knickers or bib shorts w/knee warmers or may just some embro' }
+    if (effectiveTemperature() <= 46) { bottomHalf = 'Bib tights, bib shorts w/leg warmers, embro, etc' }
     if (effectiveTemperature() <= 35) { bottomHalf = 'Thick bib tights and perhaps a layer on top of that' }
     $('#wear-bottom').text(bottomHalf)
   }
 
   function updateFeet () {
-    var feet = 'Socks and cycling shoes'
-    if (effectiveTemperature() >= 75) { feet = 'Thin socks and cycling shoes' }
-    if (effectiveTemperature() <= 55) { feet = 'Wool socks and cycling shoes, toe covers if your shoes breathe well' }
-    if (effectiveTemperature() <= 45) { feet = 'Wool socks and cycling shoes and toe covers' }
-    if (effectiveTemperature() <= 35) { feet = 'Wool socks and cycling shoes and shoe covers' }
+    var feet = '(wool) Socks and cycling shoes'
+    if (effectiveTemperature() >= 73) { feet = 'Thin (wool) socks and cycling shoes' }
+    if (effectiveTemperature() <= 53) { feet = 'Wool socks and cycling shoes, toe covers if your shoes breathe well' }
+    if (effectiveTemperature() <= 43) { feet = 'Wool socks and cycling shoes and toe covers' }
+    if (effectiveTemperature() <= 33) { feet = 'Wool socks and cycling shoes and shoe covers' }
     $('#wear-feet').text(feet)
   }
 
