@@ -23,7 +23,7 @@
   })
 
   function getWeather (longitude, latitude) {
-    var url = 'https://api.forecast.io/forecast/' + FORECAST_API_KEY + '/' +
+    var url = 'https://api.darksky.net/forecast/' + FORECAST_API_KEY + '/' +
       latitude + ',' + longitude
     $.ajax({
       url: url,
