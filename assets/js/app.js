@@ -8,13 +8,11 @@
   })
 
   $(function () {
-    if (false) {
-      $('body').addClass('loading')
-      navigator.geolocation.getCurrentPosition(function (position) {
-        getWeather(position.coords.longitude, position.coords.latitude)
-        getLocation(position.coords.longitude, position.coords.latitude)
-      })
-    }
+    $('body').addClass('loading')
+    navigator.geolocation.getCurrentPosition(function (position) {
+      getWeather(position.coords.longitude, position.coords.latitude)
+      getLocation(position.coords.longitude, position.coords.latitude)
+    })
 
     bindControls()
     updateWhatToWear()
@@ -23,12 +21,13 @@
   })
 
   function getWeather (longitude, latitude) {
-    var url = 'https://api.darksky.net/forecast/' + FORECAST_API_KEY + '/' +
+    var url = 'https://api.darksky.net/forecast/' + DARKSKY_API_KEY + '/' +
       latitude + ',' + longitude
     $.ajax({
       url: url,
       dataType: 'jsonp',
       success: function (data) {
+        console.log(data)
         var temperature = Math.round(data.currently.temperature)
         $('#temperature-slider').val(temperature)
         $('#temperature-slider').change()
