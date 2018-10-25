@@ -57,7 +57,7 @@
   }
 
   function getLocation (longitude, latitude) {
-    var url = 'http://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
+    var url = 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
       longitude + ',' + latitude + '.json?access_token=' + MAPBOX_API_KEY
     $.get(url, function (data) {
       $('p.location .location-name').attr('placeholder', data.features[0].place_name)
@@ -68,7 +68,7 @@
   function locateUser () {
     var userInput = $('input.location-name')
     if (userInput.val().length !== 0) {
-      var url = 'http://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
+      var url = 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
         encodeURIComponent(userInput.val()) + '.json?access_token=' + MAPBOX_API_KEY
       $.ajax({
         url: url,
