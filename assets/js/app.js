@@ -27,7 +27,6 @@
       url: url,
       dataType: 'jsonp',
       success: function (data) {
-        console.log(data)
         var temperature = Math.round(data.currently.temperature)
         $('#temperature-slider').val(temperature)
         $('#temperature-slider').change()
