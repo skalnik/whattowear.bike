@@ -26,6 +26,8 @@ p.location {
 
 input[type=range]{
   -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
   cursor: pointer;
   overflow: hidden;
   border: 1px solid #ccc;
@@ -43,18 +45,31 @@ input[type=range]::-moz-range-thumb {
   border: 0;
   position: relative;
   z-index: 3;
-  width: 7px;
   background: #ccc;
   height: 30px;
-}
+  width: 30px;
+} 
+
+input[type=range]::-ms-thumb {
+  border: 0;
+  position: relative;
+  z-index: 3;
+  background: #ccc;
+  height: 30px;
+  width: 30px;
+} 
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   position: relative;
   z-index: 3;
-  width: 5px;
+  width: 30px;
   background: #ccc;
   height: 28px;
+}
+
+input[type=range]:focus {
+  outline: none;
 }
 
 footer {

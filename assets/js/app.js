@@ -1,6 +1,6 @@
 (function () {
   var MAPBOX_API_KEY = 'pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg'
-  var FORECAST_API_KEY = '6d29cacc6a66711f8d1f46e88e377e19'
+  var DARKSKY_API_KEY = '6d29cacc6a66711f8d1f46e88e377e19'
   $(document).bind('ajaxStart', function () {
     $('body').addClass('loading')
   }).bind('ajaxStop', function () {
@@ -191,7 +191,7 @@
   function updateHead () {
     var head = 'Helmet, Glasses, and maybe a cycling cap'
     if (effectiveTemperature() <= 65) { head = 'Helmet, Glasses, and a cycling cap' }
-    if (effectiveTemperature() <= 53) { head = 'Helmet, Glasses, a cycling cap or thin fleece/windstop beanie'
+    if (effectiveTemperature() <= 53) { head = 'Helmet, Glasses, a cycling cap or thin fleece/windstop beanie' }
     if (effectiveTemperature() <= 40) { head = 'Helmet, Glasses, a cycling cap or thin fleece/windstop beanie, and some sort of scarf thing' }
     $('#wear-head').text(head)
   }
