@@ -220,7 +220,7 @@
 
   function updateBottomHalf () {
     var bottomHalf = 'Bib shorts'
-    if (effectiveTemperature() <= 58) { bottomHalf = 'Bib knickers or bib shorts w/knee warmers or may just some embro' }
+    if (effectiveTemperature() <= 58) { bottomHalf = 'Bib knickers or bib shorts w/knee warmers or maybe just some embro' }
     if (effectiveTemperature() <= 46) { bottomHalf = 'Bib tights, bib shorts w/leg warmers, embro, etc' }
     if (effectiveTemperature() <= 35) { bottomHalf = 'Thick bib tights and perhaps a layer on top of that' }
     $('#wear-bottom').text(bottomHalf)
