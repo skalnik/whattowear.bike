@@ -7,23 +7,6 @@ body {
   margin-bottom: 900px;
 }
 
-body:not(.loading) .spinner {
-  display: none;
-}
-
-body.loading .spinner {
-  display: inline-block;
-}
-
-
-p.location {
-  display: none;
-}
-
-  p.location input.location-name {
-    width: 500px;
-  }
-
 input[type=range]{
   -webkit-appearance: none;
   width: 100%;
