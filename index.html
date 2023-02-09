@@ -4,6 +4,7 @@
     <title>What To Wear On Your Bike</title>
     <script type="text/javascript" src="assets/vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
+    <script defer data-domain="whattowear.bike" src="https://plausible.io/js/script.js"></script>
     <link href="assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/app.css" rel="stylesheet">
   </head>
@@ -23,7 +24,7 @@
         </div>
 
         <p class="location">
-          Based on <input type="text" class="location-name"></input>
+          Based on <input type="text" class="location-name" />
         </p>
 
         <div class="temperature form-group">
@@ -80,7 +81,7 @@
         <div class="ride-type">
           <label for="ride-type">What kind of ride are you going on?</label>
           <select id="ride-type" name="ride-type" class="form-control">
-            <option value="0" default>Commute</option>
+            <option value="0" selected>Commute</option>
             <option value="1">Mountain</option>
             <option value="2">Road</option>
           </select>
@@ -104,7 +105,7 @@
           <dd id="wear-bottom"></dd>
           <dt>Feet</dt>
           <dd id="wear-feet"></dd>
-        </ul>
+        </dl>
       </div>
     </section>
 
