@@ -1,17 +1,8 @@
 (function () {
-  var MAPBOX_API_KEY = 'pk.eyJ1Ijoic2thbG5payIsImEiOiI0ZVo3TVRjIn0.emxWSobcWY9WekSuzN6iKg'
-  var DARKSKY_API_KEY = '6d29cacc6a66711f8d1f46e88e377e19'
-  $(document).bind('ajaxStart', function () {
-    $('body').addClass('loading')
-  }).bind('ajaxStop', function () {
-    $('body').removeClass('loading')
-  })
-
   $(function () {
-    $('body').addClass('loading')
     navigator.geolocation.getCurrentPosition(function (position) {
-      getWeather(position.coords.longitude, position.coords.latitude)
-      getLocation(position.coords.longitude, position.coords.latitude)
+      showLocation(position.coords.latitude, position.coords.longitude)
+      updateWeatherForLatLon(position.coords.latitude, position.coords.longitude)
     })
 
     bindControls()
@@ -20,64 +11,47 @@
     $('input[type=range]').change()
   })
 
-  function getWeather (longitude, latitude) {
-    var url = 'https://api.darksky.net/forecast/' + DARKSKY_API_KEY + '/' +
-      latitude + ',' + longitude
+  function updateWeatherForLatLon (latitude, longitude) {
+    var url = 'https://api.weather.gov/points/' + latitude + ',' + longitude
     $.ajax({
       url: url,
-      dataType: 'jsonp',
-      success: function (data) {
-        var temperature = Math.round(data.currently.temperature)
-        $('#temperature-slider').val(temperature)
-        $('#temperature-slider').change()
-
-        var windSpeed = Math.round(data.currently.windSpeed)
-        $('#wind-slider').val(windSpeed)
-        $('#wind-slider').change()
-
-        var condition = data.currently.icon
-        var sunnyConditions = ['clear-day', 'clear-night', 'partly-cloudy-day', 'partly-cloudy-night', 'wind']
-        var overcastConditions = ['cloudy', 'fog']
-        var rainConditions = ['rain']
-        var winterConditions = ['snow', 'sleet']
-
-        if (sunnyConditions.indexOf(condition) !== -1) {
-          $('#conditions-slider').val(0)
-        } else if (overcastConditions.indexOf(condition) !== -1) {
-          $('#conditions-slider').val(1)
-        } else if (rainConditions.indexOf(condition) !== -1) {
-          $('#conditions-slider').val(2)
-        } else if (winterConditions.indexOf(condition) !== -1) {
-          $('#conditions-slider').val(3)
-        }
-        $('#conditions-slider').change()
+      datatype: 'jsonp',
+      success: function(data) {
+        updateWeatherForGridEndpoint(data.properties.forecastHourly)
       }
     })
   }
 
-  function getLocation (longitude, latitude) {
-    var url = 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
-      longitude + ',' + latitude + '.json?access_token=' + MAPBOX_API_KEY
-    $.get(url, function (data) {
-      $('p.location .location-name').attr('placeholder', data.features[0].place_name)
-      $('p.location').show()
+  function updateWeatherForGridEndpoint (endpoint) {
+    $.ajax({
+      url: endpoint,
+      datatype: 'jsonp',
+      success: function(data) {
+        updateWeatherForData(
+          data.properties.periods[0].temperature,
+          data.properties.periods[0].windSpeed.replace(/\D/g,''),
+          data.properties.periods[0].probabilityOfPrecipitation.value
+          // shortForecast may be handy some day
+          // relativeHumidity may be even better, maybe dewPoint? Bob?
+        )
+      }
     })
   }
 
-  function locateUser () {
-    var userInput = $('input.location-name')
-    if (userInput.val().length !== 0) {
-      var url = 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
-        encodeURIComponent(userInput.val()) + '.json?access_token=' + MAPBOX_API_KEY
-      $.ajax({
-        url: url,
-        success: function (data) {
-          var location = data.features[0]
-          getWeather(location.center[0], location.center[1])
-          $('input.location-name').val(location.place_name)
-        }
-      })
-    }
+  function updateWeatherForData (temperature, windSpeed, precipitationProbability) {
+    $('#temperature-slider').val(temperature)
+    $('#temperature-slider').change()
+
+    $('#wind-slider').val(windSpeed)
+    $('#wind-slider').change()
+
+    $('#precipitation-slider').val(precipitationProbability)
+    $('#precipitation-slider').change()
+  }
+
+  function showLocation (latitude, longitude) {
+    $('#location-name').text(latitude + "," + longitude)
+    $('#location-name').show()
   }
 
   function bindControls () {
@@ -91,10 +65,10 @@
     })
     $('#wind-slider').change()
 
-    $('#conditions-slider').on('change mousemove', function () {
-      $('#conditions-label').text(conditions())
+    $('#precipitation-slider').on('change mousemove', function () {
+      $('#precipitation-label').text($('#precipitation-slider').val() + '% Chance')
     })
-    $('#conditions-slider').change()
+    $('#precipitation-slider').change()
 
     $('#rider-temp-slider').on('change mousemove', function () {
       $('#rider-temp-label').text(riderTemp())
@@ -109,21 +83,6 @@
     $('input[type=range]').on('change mousemove', updateWhatToWear)
     $('input[type=range]').on('change mousemove', updateBackground)
     $('select, input[type=radio]').on('change', updateWhatToWear)
-
-    $('input.location-name').on('change', locateUser)
-  }
-
-  function conditions () {
-    switch ($('#conditions-slider').val()) {
-      case '0':
-        return 'Sunny'
-      case '1':
-        return 'Overcast'
-      case '2':
-        return 'Rainy'
-      case '3':
-        return 'Wintery Percipitation'
-    }
   }
 
   function riderTemp () {
@@ -156,8 +115,8 @@
     return -0.25 * parseFloat($('#wind-slider').val())
   }
 
-  function conditionsModifier () {
-    return -5 * parseFloat($('#conditions-slider').val())
+  function precipitationModifier () {
+    return -0.05 * parseFloat($('#precipitation-slider').val())
   }
 
   function riderTempModifier () {
@@ -173,7 +132,7 @@
   }
 
   function effectiveTemperature () {
-    return temperature() + windModifier() + conditionsModifier() +
+    return temperature() + windModifier() + precipitationModifier() +
       riderTempModifier() + riderWorkModifier() + rideTypeModifier()
   }
 

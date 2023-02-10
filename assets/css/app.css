@@ -7,16 +7,7 @@ body {
   margin-bottom: 900px;
 }
 
-body:not(.loading) .spinner {
-  display: none;
-}
-
-body.loading .spinner {
-  display: inline-block;
-}
-
-
-p.location {
+body.span #location-name {
   display: none;
 }
 
