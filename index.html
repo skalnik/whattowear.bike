@@ -19,12 +19,8 @@
       <div class="container-fluid col-sm-8 col-sm-offset-2">
         <h2>Hows the weather?</h2>
 
-        <div class="spinner">
-          Updating&hellip;
-        </div>
-
         <p class="location">
-          Based on <input type="text" class="location-name" />
+          Based on your location: <span id="location-name">unknown</span>
         </p>
 
         <div class="temperature form-group">
@@ -45,12 +41,12 @@
           </div>
         </div>
 
-        <div class="conditions form-group">
-          <label for="conditions-slider">How does it look outside?</label>
+        <div class="precipitation form-group">
+          <label for="precipitation-slider">How wet is is gonna be?</label>
           <div class="input-group">
-            <input id="conditions-slider" class="form-control"
-                   type="range" min="0" max="3" step="1" value="0" />
-            <span id="conditions-label" class="input-group-addon"></span>
+            <input id="precipitation-slider" class="form-control"
+                   type="range" min="0" max="100" step="0" value="0" />
+            <span id="precipitation-label" class="input-group-addon"></span>
           </div>
         </div>
       </div>
