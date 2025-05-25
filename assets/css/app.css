@@ -21,7 +21,8 @@ header {
   font-size: 2.2em;
   font-weight: 700;
   color: #1976d2;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.3em;
+  border-bottom: none;
   letter-spacing: 0.03em;
   text-shadow: 0 2px 8px #e3f2fd;
 }
@@ -265,4 +266,27 @@ input[type="range"]::-ms-tooltip {
 .footer-powered {
   font-size: 0.95em;
   opacity: 0.85;
+}
+
+/* Main card header style for the title */
+.card-header-main {
+  background: linear-gradient(90deg, #1976d2 0%, #00bcd4 100%);
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 24px 0 rgba(25, 118, 210, 0.12),
+    0 1.5px 6px 0 rgba(25, 118, 210, 0.1);
+  padding: 24px 24px 24px 24px;
+  border-radius: 22px;
+  animation: cardPop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.card-header-main .page-header {
+  color: #fff;
+  text-shadow: 0 2px 8px #1976d2, 0 1px 0 #00bcd4;
+  margin: 10px 0 0 0;
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
