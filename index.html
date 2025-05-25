@@ -2,11 +2,21 @@
 <html>
   <head>
     <title>What To Wear On Your Bike</title>
-    <script type="text/javascript" src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="assets/vendor/jquery/dist/jquery.min.js"
+    ></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
-    <script defer data-domain="whattowear.bike" src="https://plausible.io/js/script.js"></script>
-    <link href="assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/app.css" rel="stylesheet">
+    <script
+      defer
+      data-domain="whattowear.bike"
+      src="https://plausible.io/js/script.js"
+    ></script>
+    <link
+      href="assets/vendor/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/app.css" rel="stylesheet" />
   </head>
   <body>
     <header>
@@ -21,13 +31,30 @@
 
         <p class="location">
           Based on your location: <span id="location-name">unknown</span>
+          <br />
+          <label>
+            <input type="radio" name="units" value="imperial" checked />
+            Imperial (F, mph)
+          </label>
+          <label>
+            <input type="radio" name="units" value="metric" /> Metric (C, km/h)
+          </label>
         </p>
 
         <div class="temperature form-group">
-          <label for="temperature-slider">What's the ambient temperature in Farenheit?</label>
+          <label for="temperature-slider"
+            >What's the ambient temperature in Farenheit?</label
+          >
           <div class="input-group">
-            <input id="temperature-slider" class="form-control"
-                   type="range" min="-5" max="125" step="1" value="50" />
+            <input
+              id="temperature-slider"
+              class="form-control"
+              type="range"
+              min="-5"
+              max="125"
+              step="1"
+              value="50"
+            />
             <span id="temperature-label" class="input-group-addon"></span>
           </div>
         </div>
@@ -35,8 +62,15 @@
         <div class="wind form-group">
           <label for="wind-slider">How fast is the wind blowing in MPH?</label>
           <div class="input-group">
-            <input id="wind-slider" class="form-control"
-                   type="range" min="0" max="30" step="1" value="5" />
+            <input
+              id="wind-slider"
+              class="form-control"
+              type="range"
+              min="0"
+              max="30"
+              step="1"
+              value="5"
+            />
             <span id="wind-label" class="input-group-addon"></span>
           </div>
         </div>
@@ -44,8 +78,15 @@
         <div class="precipitation form-group">
           <label for="precipitation-slider">How wet is is gonna be?</label>
           <div class="input-group">
-            <input id="precipitation-slider" class="form-control"
-                   type="range" min="0" max="100" step="0" value="0" />
+            <input
+              id="precipitation-slider"
+              class="form-control"
+              type="range"
+              min="0"
+              max="100"
+              step="0"
+              value="0"
+            />
             <span id="precipitation-label" class="input-group-addon"></span>
           </div>
         </div>
@@ -57,19 +98,37 @@
         <h2>And how about yourself?</h2>
 
         <div class="rider-temp form-group">
-          <label for="rider-temp-slider">What temperature do you like to feel when you're riding?</label>
+          <label for="rider-temp-slider"
+            >What temperature do you like to feel when you're riding?</label
+          >
           <div class="input-group">
-            <input id="rider-temp-slider" class="form-control"
-                   type="range" min="0" max="2" step="1" value="0" />
+            <input
+              id="rider-temp-slider"
+              class="form-control"
+              type="range"
+              min="0"
+              max="2"
+              step="1"
+              value="0"
+            />
             <span id="rider-temp-label" class="input-group-addon"></span>
           </div>
         </div>
 
         <div class="rider-work form-group">
-          <label for="rider-work-slider">How hard will you be working on this ride?</label>
+          <label for="rider-work-slider"
+            >How hard will you be working on this ride?</label
+          >
           <div class="input-group">
-            <input id="rider-work-slider" class="form-control"
-                   type="range" min="0" max="2" step="1" value="0" />
+            <input
+              id="rider-work-slider"
+              class="form-control"
+              type="range"
+              min="0"
+              max="2"
+              step="1"
+              value="0"
+            />
             <span id="rider-work-label" class="input-group-addon"></span>
           </div>
         </div>
@@ -106,11 +165,21 @@
     </section>
 
     <footer class="footer">
-      <p class="col-sm-8 col-sm-offset-2">Send us a note on <a href="https://github.com/skalnik/whattowear.bike">Github/whattowear.bike</a> if you disagree with recommendations and explain why!<br />
-      Inspired by CK's <a href="https://ckdake.com/projects/whattowear.html">
-      "What To Wear When Riding Bikes"</a> -
-      <a href="https://www.weather.gov/documentation/services-web-api">Powered by The US NWS API.</a>
-    </p>
+      <p class="col-sm-8 col-sm-offset-2">
+        Send us a note on
+        <a href="https://github.com/skalnik/whattowear.bike"
+          >Github/whattowear.bike</a
+        >
+        if you disagree with recommendations and explain why!<br />
+        Inspired by CK's
+        <a href="https://ckdake.com/projects/whattowear.html">
+          "What To Wear When Riding Bikes"</a
+        >
+        -
+        <a href="https://www.weather.gov/documentation/services-web-api"
+          >Powered by The US NWS API.</a
+        >
+      </p>
     </footer>
   </body>
 </html>
