@@ -104,48 +104,48 @@
   }
 
   function bindControls() {
-    $("#temperature-slider").on("change mousemove", function () {
+    $("#temperature-slider").on("input change", function () {
       $("#temperature-label").text(
         displayTemperature($("#temperature-slider").val())
       );
     });
-    $("#temperature-slider").change();
+    $("#temperature-slider").trigger("input");
 
-    $("#wind-slider").on("change mousemove", function () {
+    $("#wind-slider").on("input change", function () {
       $("#wind-label").text(displayWind($("#wind-slider").val()));
     });
-    $("#wind-slider").change();
+    $("#wind-slider").trigger("input");
 
-    $("#precipitation-slider").on("change mousemove", function () {
+    $("#precipitation-slider").on("input change", function () {
       $("#precipitation-label").text(
         $("#precipitation-slider").val() + "% Chance"
       );
     });
-    $("#precipitation-slider").change();
+    $("#precipitation-slider").trigger("input");
 
-    $("#rider-temp-slider").on("change mousemove", function () {
+    $("#rider-temp-slider").on("input change", function () {
       $("#rider-temp-label").text(riderTemp());
       savePreferencesToCookies();
     });
-    $("#rider-temp-slider").change();
+    $("#rider-temp-slider").trigger("input");
 
-    $("#rider-work-slider").on("change mousemove", function () {
+    $("#rider-work-slider").on("input change", function () {
       $("#rider-work-label").text(riderWork());
       savePreferencesToCookies();
     });
-    $("#rider-work-slider").change();
+    $("#rider-work-slider").trigger("input");
 
     $("#ride-type").on("change", function () {
       savePreferencesToCookies();
     });
 
-    $("input[type=range]").on("change mousemove", updateWhatToWear);
-    $("input[type=range]").on("change mousemove", updateBackground);
+    $("input[type=range]").on("input change", updateWhatToWear);
+    $("input[type=range]").on("input change", updateBackground);
     $("select, input[type=radio]").on("change", function () {
       updateWhatToWear();
-      $("#temperature-slider").change();
-      $("#wind-slider").change();
-      $("#precipitation-slider").change();
+      $("#temperature-slider").trigger("input");
+      $("#wind-slider").trigger("input");
+      $("#precipitation-slider").trigger("input");
       savePreferencesToCookies();
     });
   }
