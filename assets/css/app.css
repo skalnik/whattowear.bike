@@ -5,46 +5,70 @@ html {
 }
 
 body {
-  background: #fafbfc;
-  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f7fa 100%);
+  font-family: "Segoe UI", system-ui, sans-serif;
   margin: 0;
   padding: 0;
-}
-
-body.span #location-name {
-  display: none;
-}
-
-p.location input.location-name {
-  width: 100%;
-  max-width: 500px;
+  min-height: 100vh;
 }
 
 header {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 32px 0 0 0;
+  text-align: center;
 }
 
-.weather,
-.rider,
-.wear {
-  padding-left: 20px;
-  padding-right: 20px;
+.page-header {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 8px #e3f2fd;
 }
 
-.wear {
-  margin-bottom: 70px;
+/* Card style */
+.card {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 24px 0 rgba(25, 118, 210, 0.09),
+    0 1.5px 6px 0 rgba(25, 118, 210, 0.08);
+  padding: 32px 24px 24px 24px;
+  margin: 32px 0;
+  transition: box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  animation: cardPop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* Responsive container: always single column, max 600px, centered with good padding */
+@keyframes cardPop {
+  0% {
+    transform: scale(0.97) translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.card h2 {
+  color: #1976d2;
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
 .container-fluid {
   width: 100%;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  padding: 0 32px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
   display: block;
   background: transparent;
@@ -192,10 +216,14 @@ input[type="range"]::-ms-tooltip {
 @media (max-width: 600px) {
   .container-fluid {
     max-width: 100%;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
     margin-top: 16px;
     margin-bottom: 16px;
+  }
+  .card {
+    padding: 18px 6px 16px 6px;
+    margin: 16px 0;
   }
   .slider-group {
     margin: 20px 0;
@@ -212,15 +240,29 @@ input[type="range"]::-ms-tooltip {
 }
 
 /* Footer styles */
-footer {
-  position: absolute;
-  bottom: 0;
+.footer {
+  background: linear-gradient(90deg, #1976d2 0%, #00bcd4 100%);
+  color: #fff;
+  padding: 32px 0 16px 0;
+  margin-top: 48px;
+  text-align: center;
   width: 100%;
-  height: 60px;
-  background-color: #f5f5f5;
+  font-size: 1.1em;
+  box-shadow: 0 -2px 12px 0 rgba(25, 118, 210, 0.08);
 }
 
-footer p {
-  margin: 20px 0;
-  text-align: center;
+.footer a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #ffe082;
+}
+
+.footer-powered {
+  font-size: 0.95em;
+  opacity: 0.85;
 }

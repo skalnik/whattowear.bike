@@ -21,162 +21,170 @@
   </head>
   <body>
     <header>
-      <div class="container-fluid col-sm-8 col-sm-offset-2">
+      <div class="container-fluid">
         <h1 class="page-header">What To Wear On Your Bike</h1>
       </div>
     </header>
 
-    <section class="weather">
-      <div class="container-fluid col-sm-8 col-sm-offset-2">
-        <h2>Hows the weather?</h2>
-
-        <p class="location">
-          Based on your location: <span id="location-name">unknown</span>
-          <br />
-          <label>
-            <input type="radio" name="units" value="imperial" checked />
-            Imperial (F, mph)
-          </label>
-          <label>
-            <input type="radio" name="units" value="metric" /> Metric (C, km/h)
-          </label>
-        </p>
-
-        <div class="slider-group temperature form-group">
-          <label for="temperature-slider" class="slider-label"
-            >What's the ambient temperature?</label
-          >
-          <input
-            id="temperature-slider"
-            class="form-control"
-            type="range"
-            min="-5"
-            max="125"
-            step="1"
-            value="50"
-          />
-          <span id="temperature-label" class="slider-value"></span>
+    <main>
+      <section class="weather">
+        <div class="container-fluid">
+          <div class="card">
+            <h2>Hows the weather?</h2>
+            <p class="location">
+              Based on your location: <span id="location-name">unknown</span>
+              <br />
+              <label>
+                <input type="radio" name="units" value="imperial" checked />
+                Imperial (F, mph)
+              </label>
+              <label>
+                <input type="radio" name="units" value="metric" /> Metric (C,
+                km/h)
+              </label>
+            </p>
+            <div class="slider-group temperature form-group">
+              <label for="temperature-slider" class="slider-label"
+                >What's the ambient temperature?</label
+              >
+              <input
+                id="temperature-slider"
+                class="form-control"
+                type="range"
+                min="-5"
+                max="125"
+                step="1"
+                value="50"
+              />
+              <span id="temperature-label" class="slider-value"></span>
+            </div>
+            <div class="slider-group wind form-group">
+              <label for="wind-slider" class="slider-label"
+                >How fast is the wind blowing?</label
+              >
+              <input
+                id="wind-slider"
+                class="form-control"
+                type="range"
+                min="0"
+                max="30"
+                step="1"
+                value="5"
+              />
+              <span id="wind-label" class="slider-value"></span>
+            </div>
+            <div class="slider-group precipitation form-group">
+              <label for="precipitation-slider" class="slider-label"
+                >How wet is is gonna be?</label
+              >
+              <input
+                id="precipitation-slider"
+                class="form-control"
+                type="range"
+                min="0"
+                max="100"
+                step="0"
+                value="0"
+              />
+              <span id="precipitation-label" class="slider-value"></span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="slider-group wind form-group">
-          <label for="wind-slider" class="slider-label"
-            >How fast is the wind blowing?</label
-          >
-          <input
-            id="wind-slider"
-            class="form-control"
-            type="range"
-            min="0"
-            max="30"
-            step="1"
-            value="5"
-          />
-          <span id="wind-label" class="slider-value"></span>
+      <section class="rider">
+        <div class="container-fluid">
+          <div class="card">
+            <h2>And how about yourself?</h2>
+            <div class="slider-group rider-temp form-group">
+              <label for="rider-temp-slider" class="slider-label"
+                >What temperature do you like to feel when you're riding?</label
+              >
+              <input
+                id="rider-temp-slider"
+                class="form-control"
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value="0"
+              />
+              <span id="rider-temp-label" class="slider-value"></span>
+            </div>
+            <div class="slider-group rider-work form-group">
+              <label for="rider-work-slider" class="slider-label"
+                >How hard will you be working on this ride?</label
+              >
+              <input
+                id="rider-work-slider"
+                class="form-control"
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value="0"
+              />
+              <span id="rider-work-label" class="slider-value"></span>
+            </div>
+            <div class="slider-group ride-type form-group">
+              <label for="ride-type" class="slider-label"
+                >What kind of ride are you going on?</label
+              >
+              <select id="ride-type" name="ride-type" class="form-control">
+                <option value="0" selected>Commute</option>
+                <option value="1">Mountain</option>
+                <option value="2">Road</option>
+              </select>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="slider-group precipitation form-group">
-          <label for="precipitation-slider" class="slider-label"
-            >How wet is is gonna be?</label
-          >
-          <input
-            id="precipitation-slider"
-            class="form-control"
-            type="range"
-            min="0"
-            max="100"
-            step="0"
-            value="0"
-          />
-          <span id="precipitation-label" class="slider-value"></span>
+      <section class="wear">
+        <div class="container-fluid">
+          <div class="card">
+            <h2>Wear this stuff:</h2>
+            <dl class="dl-horizontal">
+              <dt>Head</dt>
+              <dd id="wear-head"></dd>
+              <dt>Top half</dt>
+              <dd id="wear-top"></dd>
+              <dt>Arms</dt>
+              <dd id="wear-arms"></dd>
+              <dt>Hands</dt>
+              <dd id="wear-hands"></dd>
+              <dt>Bottom half</dt>
+              <dd id="wear-bottom"></dd>
+              <dt>Feet</dt>
+              <dd id="wear-feet"></dd>
+            </dl>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="rider">
-      <div class="container-fluid col-sm-8 col-sm-offset-2">
-        <h2>And how about yourself?</h2>
-
-        <div class="slider-group rider-temp form-group">
-          <label for="rider-temp-slider" class="slider-label"
-            >What temperature do you like to feel when you're riding?</label
-          >
-          <input
-            id="rider-temp-slider"
-            class="form-control"
-            type="range"
-            min="0"
-            max="2"
-            step="1"
-            value="0"
-          />
-          <span id="rider-temp-label" class="slider-value"></span>
-        </div>
-
-        <div class="slider-group rider-work form-group">
-          <label for="rider-work-slider" class="slider-label"
-            >How hard will you be working on this ride?</label
-          >
-          <input
-            id="rider-work-slider"
-            class="form-control"
-            type="range"
-            min="0"
-            max="2"
-            step="1"
-            value="0"
-          />
-          <span id="rider-work-label" class="slider-value"></span>
-        </div>
-
-        <div class="slider-group ride-type form-group">
-          <label for="ride-type" class="slider-label"
-            >What kind of ride are you going on?</label
-          >
-          <select id="ride-type" name="ride-type" class="form-control">
-            <option value="0" selected>Commute</option>
-            <option value="1">Mountain</option>
-            <option value="2">Road</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <section class="wear">
-      <div class="wear container-fluid col-sm-8 col-sm-offset-2">
-        <h2>Wear this stuff:</h2>
-        <dl class="dl-horizontal">
-          <dt>Head</dt>
-          <dd id="wear-head"></dd>
-          <dt>Top half</dt>
-          <dd id="wear-top"></dd>
-          <dt>Arms</dt>
-          <dd id="wear-arms"></dd>
-          <dt>Hands</dt>
-          <dd id="wear-hands"></dd>
-          <dt>Bottom half</dt>
-          <dd id="wear-bottom"></dd>
-          <dt>Feet</dt>
-          <dd id="wear-feet"></dd>
-        </dl>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer class="footer">
-      <p class="col-sm-8 col-sm-offset-2">
-        Send us a note on
-        <a href="https://github.com/skalnik/whattowear.bike"
-          >Github/whattowear.bike</a
-        >
-        if you disagree with recommendations and explain why!<br />
-        Inspired by CK's
-        <a href="https://ckdake.com/projects/whattowear.html">
-          "What To Wear When Riding Bikes"</a
-        >
-        -
-        <a href="https://www.weather.gov/documentation/services-web-api"
-          >Powered by The US NWS API.</a
-        >
-      </p>
+      <div class="footer-inner">
+        <p>
+          Send us a note on
+          <a href="https://github.com/skalnik/whattowear.bike"
+            >Github/whattowear.bike</a
+          >
+          if you disagree with recommendations and explain why!<br />
+          Inspired by CK's
+          <a href="https://ckdake.com/projects/whattowear.html">
+            "What To Wear When Riding Bikes"</a
+          >.<br />
+          Try our fun ride distance tool at
+          <a href="https://howfarwasthat.bike">howfarwasthat.bike</a>!<br />
+          <span class="footer-powered"
+            >Powered by
+            <a href="https://www.weather.gov/documentation/services-web-api"
+              >The US NWS API</a
+            >.</span
+          >
+        </p>
+      </div>
     </footer>
   </body>
 </html>
