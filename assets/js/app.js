@@ -1,12 +1,14 @@
 (function () {
+  var currentLat = null;
+  var currentLon = null;
+
   $(function () {
     loadPreferencesFromCookies();
     navigator.geolocation.getCurrentPosition(function (position) {
-      showLocation(position.coords.latitude, position.coords.longitude);
-      updateWeatherForLatLon(
-        position.coords.latitude,
-        position.coords.longitude
-      );
+      currentLat = position.coords.latitude;
+      currentLon = position.coords.longitude;
+      showLocation(currentLat, currentLon);
+      updateWeatherForLatLon(currentLat, currentLon);
     });
 
     bindControls();
@@ -40,6 +42,7 @@
     setCookie("riderTemp", $("#rider-temp-slider").val(), 365);
     setCookie("riderWork", $("#rider-work-slider").val(), 365);
     setCookie("rideType", $("#ride-type").val(), 365);
+    setCookie("rideDuration", $("#ride-duration-slider").val(), 365);
     setCookie("units", $('input[name="units"]:checked').val(), 365);
   }
 
@@ -47,10 +50,12 @@
     var riderTemp = getCookie("riderTemp");
     var riderWork = getCookie("riderWork");
     var rideType = getCookie("rideType");
+    var rideDuration = getCookie("rideDuration");
     var units = getCookie("units");
     if (riderTemp !== null) $("#rider-temp-slider").val(riderTemp);
     if (riderWork !== null) $("#rider-work-slider").val(riderWork);
     if (rideType !== null) $("#ride-type").val(rideType);
+    if (rideDuration !== null) $("#ride-duration-slider").val(rideDuration);
     if (units !== null) {
       $('input[name="units"][value="' + units + '"]').prop("checked", true);
     }
@@ -72,30 +77,45 @@
       url: endpoint,
       datatype: "jsonp",
       success: function (data) {
-        updateWeatherForData(
-          data.properties.periods[0].temperature,
-          data.properties.periods[0].windSpeed.replace(/\D/g, ""),
-          data.properties.periods[0].probabilityOfPrecipitation.value
-          // shortForecast may be handy some day
-          // relativeHumidity may be even better, maybe dewPoint? Bob?
-        );
+        var duration = parseInt($("#ride-duration-slider").val());
+        var periods = data.properties.periods.slice(0, duration);
+        
+        // Get ranges for the ride duration
+        var temps = periods.map(function(p) { return p.temperature; });
+        var winds = periods.map(function(p) { return parseInt(p.windSpeed.replace(/\D/g, "")) || 0; });
+        var precips = periods.map(function(p) { return p.probabilityOfPrecipitation.value || 0; });
+        
+        var minTemp = Math.min.apply(null, temps);
+        var maxTemp = Math.max.apply(null, temps);
+        var minWind = Math.min.apply(null, winds);
+        var maxWind = Math.max.apply(null, winds);
+        var minPrecip = Math.min.apply(null, precips);
+        var maxPrecip = Math.max.apply(null, precips);
+        
+        updateWeatherForData(minTemp, maxTemp, minWind, maxWind, minPrecip, maxPrecip);
       },
     });
   }
 
   function updateWeatherForData(
-    temperature,
-    windSpeed,
-    precipitationProbability
+    minTemp,
+    maxTemp,
+    minWind,
+    maxWind,
+    minPrecip,
+    maxPrecip
   ) {
-    $("#temperature-slider").val(temperature);
-    $("#temperature-slider").change();
+    $("#temperature-slider-min").val(minTemp);
+    $("#temperature-slider-max").val(maxTemp);
+    $("#temperature-slider-min").change();
 
-    $("#wind-slider").val(windSpeed);
-    $("#wind-slider").change();
+    $("#wind-slider-min").val(minWind);
+    $("#wind-slider-max").val(maxWind);
+    $("#wind-slider-min").change();
 
-    $("#precipitation-slider").val(precipitationProbability);
-    $("#precipitation-slider").change();
+    $("#precipitation-slider-min").val(minPrecip);
+    $("#precipitation-slider-max").val(maxPrecip);
+    $("#precipitation-slider-min").change();
   }
 
   function showLocation(latitude, longitude) {
@@ -104,24 +124,77 @@
   }
 
   function bindControls() {
-    $("#temperature-slider").on("input change", function () {
-      $("#temperature-label").text(
-        displayTemperature($("#temperature-slider").val())
-      );
+    // Temperature range slider
+    $("#temperature-slider-min, #temperature-slider-max").on("input change", function () {
+      var min = parseInt($("#temperature-slider-min").val());
+      var max = parseInt($("#temperature-slider-max").val());
+      
+      // Ensure min doesn't exceed max
+      if (min > max) {
+        if (this.id === "temperature-slider-min") {
+          $("#temperature-slider-min").val(max);
+          min = max;
+        } else {
+          $("#temperature-slider-max").val(min);
+          max = min;
+        }
+      }
+      
+      if (min === max) {
+        $("#temperature-label").text(displayTemperature(min));
+      } else {
+        $("#temperature-label").text(displayTemperatureRange(min, max));
+      }
     });
-    $("#temperature-slider").trigger("input");
+    $("#temperature-slider-min").trigger("input");
 
-    $("#wind-slider").on("input change", function () {
-      $("#wind-label").text(displayWind($("#wind-slider").val()));
+    // Wind range slider
+    $("#wind-slider-min, #wind-slider-max").on("input change", function () {
+      var min = parseInt($("#wind-slider-min").val());
+      var max = parseInt($("#wind-slider-max").val());
+      
+      // Ensure min doesn't exceed max
+      if (min > max) {
+        if (this.id === "wind-slider-min") {
+          $("#wind-slider-min").val(max);
+          min = max;
+        } else {
+          $("#wind-slider-max").val(min);
+          max = min;
+        }
+      }
+      
+      if (min === max) {
+        $("#wind-label").text(displayWind(min));
+      } else {
+        $("#wind-label").text(displayWindRange(min, max));
+      }
     });
-    $("#wind-slider").trigger("input");
+    $("#wind-slider-min").trigger("input");
 
-    $("#precipitation-slider").on("input change", function () {
-      $("#precipitation-label").text(
-        $("#precipitation-slider").val() + "% Chance"
-      );
+    // Precipitation range slider
+    $("#precipitation-slider-min, #precipitation-slider-max").on("input change", function () {
+      var min = parseInt($("#precipitation-slider-min").val());
+      var max = parseInt($("#precipitation-slider-max").val());
+      
+      // Ensure min doesn't exceed max
+      if (min > max) {
+        if (this.id === "precipitation-slider-min") {
+          $("#precipitation-slider-min").val(max);
+          min = max;
+        } else {
+          $("#precipitation-slider-max").val(min);
+          max = min;
+        }
+      }
+      
+      if (min === max) {
+        $("#precipitation-label").text(min + "% Chance");
+      } else {
+        $("#precipitation-label").text(min + " - " + max + "% Chance");
+      }
     });
-    $("#precipitation-slider").trigger("input");
+    $("#precipitation-slider-min").trigger("input");
 
     $("#rider-temp-slider").on("input change", function () {
       $("#rider-temp-label").text(riderTemp());
@@ -135,6 +208,17 @@
     });
     $("#rider-work-slider").trigger("input");
 
+    $("#ride-duration-slider").on("input change", function () {
+      var hours = $("#ride-duration-slider").val();
+      $("#ride-duration-label").text(hours + (hours === "1" ? " hour" : " hours"));
+      savePreferencesToCookies();
+      // Refresh weather forecast when duration changes
+      if (currentLat !== null && currentLon !== null) {
+        updateWeatherForLatLon(currentLat, currentLon);
+      }
+    });
+    $("#ride-duration-slider").trigger("input");
+
     $("#ride-type").on("change", function () {
       savePreferencesToCookies();
     });
@@ -143,9 +227,9 @@
     $("input[type=range]").on("input change", updateBackground);
     $("select, input[type=radio]").on("change", function () {
       updateWhatToWear();
-      $("#temperature-slider").trigger("input");
-      $("#wind-slider").trigger("input");
-      $("#precipitation-slider").trigger("input");
+      $("#temperature-slider-min").trigger("input");
+      $("#wind-slider-min").trigger("input");
+      $("#precipitation-slider-min").trigger("input");
       savePreferencesToCookies();
     });
   }
@@ -173,15 +257,15 @@
   }
 
   function temperature() {
-    return parseFloat($("#temperature-slider").val());
+    return parseFloat($("#temperature-slider-min").val());
   }
 
   function windModifier() {
-    return -0.25 * parseFloat($("#wind-slider").val());
+    return -0.25 * parseFloat($("#wind-slider-max").val());
   }
 
   function precipitationModifier() {
-    return -0.05 * parseFloat($("#precipitation-slider").val());
+    return -0.05 * parseFloat($("#precipitation-slider-max").val());
   }
 
   function riderTempModifier() {
@@ -214,6 +298,19 @@
     updateHands();
     updateBottomHalf();
     updateFeet();
+    updateLayerNotice();
+  }
+
+  function updateLayerNotice() {
+    var minTemp = parseInt($("#temperature-slider-min").val());
+    var maxTemp = parseInt($("#temperature-slider-max").val());
+    var tempRange = maxTemp - minTemp;
+    
+    if (tempRange > 8) {
+      $("#layer-notice").show();
+    } else {
+      $("#layer-notice").hide();
+    }
   }
 
   function updateHead() {
@@ -332,10 +429,28 @@
     return tempF + " F";
   }
 
+  function displayTemperatureRange(minTempF, maxTempF) {
+    if (isMetric()) {
+      var minC = Math.round(((minTempF - 32) * 5) / 9);
+      var maxC = Math.round(((maxTempF - 32) * 5) / 9);
+      return minC + " - " + maxC + " C";
+    }
+    return minTempF + " - " + maxTempF + " F";
+  }
+
   function displayWind(windMph) {
     if (isMetric()) {
       return Math.round(windMph * 1.60934) + " km/h";
     }
     return windMph + " MPH";
+  }
+
+  function displayWindRange(minMph, maxMph) {
+    if (isMetric()) {
+      var minKmh = Math.round(minMph * 1.60934);
+      var maxKmh = Math.round(maxMph * 1.60934);
+      return minKmh + " - " + maxKmh + " km/h";
+    }
+    return minMph + " - " + maxMph + " MPH";
   }
 })();

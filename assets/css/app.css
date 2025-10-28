@@ -61,6 +61,21 @@ header {
   letter-spacing: 0.01em;
 }
 
+/* Layer notice */
+.layer-notice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 1em;
+  color: #856404;
+  font-size: 1em;
+}
+
+.layer-notice strong {
+  color: #ff9800;
+}
+
 .container-fluid {
   width: 100%;
   max-width: 600px;
@@ -95,6 +110,13 @@ header {
   align-items: stretch;
 }
 
+/* Range slider container for dual-thumb sliders */
+.range-slider-container {
+  position: relative;
+  height: 44px;
+  margin: 8px 0;
+}
+
 .slider-label {
   font-size: 1.1em;
   margin-bottom: 8px;
@@ -103,7 +125,8 @@ header {
 }
 
 .slider-value {
-  margin-top: 4px;
+  margin-top: 2px;
+  margin-bottom: 0;
   font-size: 1em;
   color: #444;
 }
@@ -121,6 +144,34 @@ input[type="range"] {
   padding: 0;
   transition: background 0.2s;
   box-shadow: none;
+}
+
+/* Dual range sliders */
+.range-slider {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  background: transparent;
+}
+
+.range-slider::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+.range-slider::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+.range-slider::-ms-thumb {
+  pointer-events: auto;
+}
+
+.range-slider-min {
+  z-index: 1;
+}
+
+.range-slider-max {
+  z-index: 2;
 }
 
 input[type="range"]:focus {

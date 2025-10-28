@@ -44,48 +44,81 @@
               </label>
             </p>
             <div class="slider-group temperature form-group">
-              <label for="temperature-slider" class="slider-label"
+              <label for="temperature-slider-min" class="slider-label"
                 >What's the ambient temperature?</label
               >
-              <input
-                id="temperature-slider"
-                class="form-control"
-                type="range"
-                min="-5"
-                max="125"
-                step="1"
-                value="50"
-              />
+              <div class="range-slider-container">
+                <input
+                  id="temperature-slider-min"
+                  class="form-control range-slider range-slider-min"
+                  type="range"
+                  min="-5"
+                  max="125"
+                  step="1"
+                  value="50"
+                />
+                <input
+                  id="temperature-slider-max"
+                  class="form-control range-slider range-slider-max"
+                  type="range"
+                  min="-5"
+                  max="125"
+                  step="1"
+                  value="50"
+                />
+              </div>
               <span id="temperature-label" class="slider-value"></span>
             </div>
             <div class="slider-group wind form-group">
-              <label for="wind-slider" class="slider-label"
+              <label for="wind-slider-min" class="slider-label"
                 >How fast is the wind blowing?</label
               >
-              <input
-                id="wind-slider"
-                class="form-control"
-                type="range"
-                min="0"
-                max="30"
-                step="1"
-                value="5"
-              />
+              <div class="range-slider-container">
+                <input
+                  id="wind-slider-min"
+                  class="form-control range-slider range-slider-min"
+                  type="range"
+                  min="0"
+                  max="30"
+                  step="1"
+                  value="5"
+                />
+                <input
+                  id="wind-slider-max"
+                  class="form-control range-slider range-slider-max"
+                  type="range"
+                  min="0"
+                  max="30"
+                  step="1"
+                  value="5"
+                />
+              </div>
               <span id="wind-label" class="slider-value"></span>
             </div>
             <div class="slider-group precipitation form-group">
-              <label for="precipitation-slider" class="slider-label"
+              <label for="precipitation-slider-min" class="slider-label"
                 >How wet is is gonna be?</label
               >
-              <input
-                id="precipitation-slider"
-                class="form-control"
-                type="range"
-                min="0"
-                max="100"
-                step="0"
-                value="0"
-              />
+              <div class="range-slider-container">
+                <input
+                  id="precipitation-slider-min"
+                  class="form-control range-slider range-slider-min"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="0"
+                />
+                <input
+                  id="precipitation-slider-max"
+                  class="form-control range-slider range-slider-max"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="0"
+                />
+              </div>
               <span id="precipitation-label" class="slider-value"></span>
             </div>
           </div>
@@ -136,6 +169,21 @@
                 <option value="2">Road</option>
               </select>
             </div>
+            <div class="slider-group ride-duration form-group">
+              <label for="ride-duration-slider" class="slider-label"
+                >How long will you be riding?</label
+              >
+              <input
+                id="ride-duration-slider"
+                class="form-control"
+                type="range"
+                min="1"
+                max="12"
+                step="1"
+                value="2"
+              />
+              <span id="ride-duration-label" class="slider-value"></span>
+            </div>
           </div>
         </div>
       </section>
@@ -144,6 +192,9 @@
         <div class="container-fluid">
           <div class="card">
             <h2>Wear this stuff:</h2>
+            <p id="layer-notice" class="layer-notice" style="display: none;">
+              <strong>Note:</strong> Plan on adding/removing layers during your ride
+            </p>
             <dl class="dl-horizontal">
               <dt>Head</dt>
               <dd id="wear-head"></dd>
